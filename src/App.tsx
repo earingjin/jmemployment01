@@ -13,6 +13,7 @@ import JOB_REGISTRATION_VIDEO from './assets/images/구직등록 신청 영상.m
 import ZEN_STONES_IMG from './assets/images/scandinavian_zen_stones_1790127704212.jpg';
 import NATIONAL_EMPLOYMENT_VIDEO from './assets/images/국취신청.mp4';
 import LOUNGE_BANNER_IMG from './assets/images/scandinavian_lounge_banner_1790127714603.jpg';
+import JMCAREER_LOGO from './assets/images/제이엠커리어 로고.png';
 
 // Data definitions
 interface SeekerInfo {
@@ -458,23 +459,19 @@ export default function App() {
           {/* Brand Logo (Refined, architectural editorial styling) */}
           <div className="flex items-center gap-3 shrink-0">
             <button
+              type="button"
+              aria-label="JMCAREER 홈으로 이동"
               onClick={() => {
                 setCurrentView('home');
                 window.scrollTo({ top: 0, behavior: 'smooth' });
               }}
               className="flex items-center gap-2.5 text-left focus:outline-none group"
             >
-              <div className="w-8 h-8 rounded-full bg-[#12242D] text-white flex items-center justify-center font-serif text-sm font-semibold tracking-wider">
-                JM
-              </div>
-              <div className="flex flex-col">
-                <span className="font-serif-kr text-lg font-bold tracking-tight text-[#12242D] group-hover:text-[#7296A1] transition-colors">
-                  JMCAREER
-                </span>
-                <span className="text-[10px] text-slate-400 font-sans tracking-wider -mt-1 uppercase">
-                  Employment Service
-                </span>
-              </div>
+              <img
+                src={JMCAREER_LOGO}
+                alt="JMCAREER Employment Service"
+                className="h-10 sm:h-11 w-auto object-contain pointer-events-none"
+              />
             </button>
           </div>
 
@@ -578,13 +575,13 @@ export default function App() {
                 <div className="max-w-2xl ml-auto w-full text-right flex flex-col items-end">
                   {/* Editorial Serif Heading matching image.png */}
                   <h1 className="w-full font-serif-kr text-3xl sm:text-5xl lg:text-6xl font-normal tracking-tight text-white leading-[1.25] mb-5 text-balance drop-shadow-xs">
-                    취업지원과 전문 컨설팅,<br />
-                    <span className="font-serif">더 깊이 있고 품격 있게</span>
+                    취업이 막막할 때,<br />
+                    <span className="font-serif">국민취업지원제도 상담부터</span>
                   </h1>
 
                   <p className="w-full max-w-xl text-white/90 text-sm sm:text-base leading-relaxed mb-8 font-light drop-shadow-xs">
-                    국민취업지원제도 구직촉진수당, 청년 일경험 참여수당, 일자리도약장려금까지 
-                    개인별 자격 요건과 최대 수당 혜택을 1:1 맞춤형으로 분석해 드립니다.
+                    국민취업지원제도 최대 360만원 혜택받기<br></br>
+                    취업지원금, 받을 수 있는지 지금 확인하세요
                   </p>
 
                   {/* Dark Pill CTA Button matching image.png */}
