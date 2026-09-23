@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import {
   Building2, Phone, Clock, MapPin, Search, ChevronLeft, ChevronRight,
   ExternalLink, ArrowRight, X, User, FileText,
-  Award, ShieldCheck, Sparkles, Compass, Check
+  Award, ShieldCheck, Compass, Check
 } from 'lucide-react';
 
 // Import image assets directly so Vite bundles and deploys them correctly in production
@@ -309,6 +309,7 @@ export default function App() {
   const [isAdminOpen, setIsAdminOpen] = useState(false);
   const [activeAdminTab, setActiveAdminTab] = useState<'branch' | 'common'>('branch');
   const [selectedBranch, setSelectedBranch] = useState("본사");
+  const [mapBranch, setMapBranch] = useState("본사");
   const [branchSearch, setBranchSearch] = useState("");
   const [bdRegion, setBdRegion] = useState("전체");
 
@@ -388,6 +389,7 @@ export default function App() {
   }, [reviews.length]);
 
   const currentBranch = branches[selectedBranch] || branches["본사"];
+  const displayedMapBranch = branches[mapBranch] || branches["본사"];
 
   const handleContactSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -574,12 +576,6 @@ export default function App() {
 
               <div className="max-w-7xl mx-auto px-4 sm:px-8 relative z-10">
                 <div className="max-w-2xl ml-auto w-full text-right flex flex-col items-end">
-                  {/* Subtle Badge */}
-                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/20 backdrop-blur-sm border border-white/30 text-white text-[11px] font-medium tracking-wider mb-5">
-                    <Sparkles size={12} className="text-white" />
-                    <span>{benefitYear}년 고용노동부 민간고용서비스 우수기관</span>
-                  </div>
-
                   {/* Editorial Serif Heading matching image.png */}
                   <h1 className="w-full font-serif-kr text-3xl sm:text-5xl lg:text-6xl font-normal tracking-tight text-white leading-[1.25] mb-5 text-balance drop-shadow-xs">
                     취업지원과 전문 컨설팅,<br />
@@ -656,6 +652,133 @@ export default function App() {
               </div>
             </section>
 
+            {/* SERVICE OVERVIEW: program guide placed directly below the hero */}
+            <section className="bg-white border-b border-[#E3EBEE] py-16 sm:py-20 lg:py-24">
+              <div className="max-w-7xl mx-auto px-4 sm:px-8">
+                <div className="mb-9 sm:mb-11 text-center">
+                  <span className="text-xs font-bold text-[#7296A1] tracking-widest uppercase block mb-3">
+                    Services
+                  </span>
+                  <h2 className="font-serif-kr text-3xl sm:text-4xl font-normal text-[#12242D] mb-3">
+                    운영 사업 한눈에 보기
+                  </h2>
+                  <p className="text-sm text-[#4E626B] leading-relaxed font-light">
+                    클릭하면 지원내용부터 신청방법까지 바로 확인할 수 있습니다.
+                  </p>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
+                  {[
+                    {
+                      tag: '구직자 · 저소득층',
+                      title: '국민취업지원제도',
+                      desc: '취업지원과 생계비를 함께 지원하는 한국형 실업부조',
+                      benefit: '구직촉진수당 월 최대 60만원'
+                    },
+                    {
+                      tag: '청년 · 기업',
+                      title: '청년일자리도약장려금',
+                      desc: '청년 정규직 채용 기업엔 인건비, 비수도권 근속장려금',
+                      benefit: '청년 개인 최대 720만원'
+                    },
+                    {
+                      tag: '미취업 청년',
+                      title: '미래내일 일경험',
+                      desc: '직무교육과 우수기업 인턴십으로 취업역량 강화',
+                      benefit: '8주 참여수당 최대 450만원'
+                    },
+                    {
+                      tag: '만 60세 이상',
+                      title: '시니어인턴십',
+                      desc: '고령자 채용 기업에 인건비 지원, 시니어 일자리 촉진',
+                      benefit: '기업 지원 최대 550만원'
+                    }
+                  ].map((service, index) => {
+                    const program = programs[index];
+
+                    return (
+                      <button
+                        key={service.title}
+                        onClick={() => program && setActiveModal({ type: 'program', data: program, audience: 'seeker' })}
+                        className="min-h-56 bg-[#FAFBFB] hover:bg-white text-left p-6 rounded-2xl border border-[#E3EBEE] hover:border-[#94B5BE] shadow-[0_4px_20px_rgba(0,0,0,0.025)] hover:shadow-[0_10px_28px_rgba(18,36,45,0.08)] transition-all duration-300 group flex flex-col"
+                      >
+                        <span className="self-start text-[11px] font-bold px-2.5 py-1 rounded-full bg-[#EBF2F4] text-[#3D5C65]">
+                          {service.tag}
+                        </span>
+                        <h3 className="mt-5 text-lg font-bold text-[#12242D] group-hover:text-[#557A84] transition-colors">
+                          {service.title}
+                        </h3>
+                        <p className="mt-2 text-sm leading-relaxed text-[#687C85] font-light">
+                          {service.desc}
+                        </p>
+                        <p className="mt-auto pt-5 text-sm font-bold text-[#3D5C65]">
+                          {service.benefit}
+                        </p>
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+            </section>
+
+            {/* VIDEO GUIDE: quick start videos placed directly below the hero */}
+            <section className="bg-[#FAFBFB] border-b border-[#E3EBEE] py-16 sm:py-20 lg:py-24">
+              <div className="max-w-7xl mx-auto px-4 sm:px-8">
+                <div className="text-center mb-9 sm:mb-11">
+                  <span className="text-[11px] sm:text-xs font-bold tracking-widest text-[#7296A1] uppercase">
+                    Video guide
+                  </span>
+                  <h2 className="mt-3 font-serif-kr text-2xl sm:text-3xl lg:text-4xl font-normal tracking-tight text-[#12242D]">
+                    구직수당 신청, 영상으로 쉽게 시작하세요
+                  </h2>
+                </div>
+
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-7">
+                  <article className="overflow-hidden rounded-3xl bg-white border border-[#E3EBEE] shadow-[0_10px_35px_rgba(0,0,0,0.04)]">
+                    <div className="aspect-video bg-[#EBF2F4] p-3 sm:p-4">
+                      <div className="h-full overflow-hidden rounded-2xl bg-black">
+                        <video
+                          src={JOB_REGISTRATION_VIDEO}
+                          className="w-full h-full object-cover"
+                          controls
+                          playsInline
+                          aria-label="구직등록 신청 안내 영상"
+                        />
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-3 px-5 sm:px-6 py-5 border-t border-[#E3EBEE]">
+                      <span className="shrink-0 w-7 h-7 rounded-full bg-[#EBF2F4] text-[#3D5C65] flex items-center justify-center text-[11px] font-extrabold">01</span>
+                      <div className="flex items-baseline gap-2 min-w-0">
+                        <h3 className="text-base sm:text-lg font-bold text-[#12242D] whitespace-nowrap">구직등록 신청</h3>
+                        <p className="text-xs text-[#687C85] truncate">먼저 구직등록부터 해요</p>
+                      </div>
+                    </div>
+                  </article>
+
+                  <article className="overflow-hidden rounded-3xl bg-white border border-[#E3EBEE] shadow-[0_10px_35px_rgba(0,0,0,0.04)]">
+                    <div className="aspect-video bg-[#EBF2F4] p-3 sm:p-4">
+                      <div className="h-full overflow-hidden rounded-2xl bg-black">
+                        <video
+                          src={NATIONAL_EMPLOYMENT_VIDEO}
+                          className="w-full h-full object-cover"
+                          controls
+                          playsInline
+                          aria-label="국민취업지원제도 신청 안내 영상"
+                        />
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-3 px-5 sm:px-6 py-5 border-t border-[#E3EBEE]">
+                      <span className="shrink-0 w-7 h-7 rounded-full bg-[#EBF2F4] text-[#3D5C65] flex items-center justify-center text-[11px] font-extrabold">02</span>
+                      <div className="flex items-baseline gap-2 min-w-0">
+                        <h3 className="text-base sm:text-lg font-bold text-[#12242D] whitespace-nowrap">국민취업지원 신청</h3>
+                        <p className="text-xs text-[#687C85] truncate">구직수당 신청 방법을 알아봐요</p>
+                      </div>
+                    </div>
+                  </article>
+                </div>
+              </div>
+            </section>
+
             {/* =========================================================================
                 SECTION 1: ASYMMETRIC EDITORIAL BLOCK 1 (Matching 2nd block in image.png)
                 Left: Editorial Serif Headline, refined body, dark pill button.
@@ -726,15 +849,10 @@ export default function App() {
                   <div className="lg:col-span-6">
                     <div className="relative rounded-3xl overflow-hidden bg-[#EBF2F4] shadow-[0_10px_35px_rgba(0,0,0,0.04)] border border-[#DCE8EB]">
                       <div className="aspect-video">
-                        <video
-                          src={JOB_REGISTRATION_VIDEO}
+                        <img
+                          src={ARMCHAIR_IMG}
+                          alt="편안한 취업 상담 공간"
                           className="w-full h-full object-cover"
-                          controls
-                          autoPlay
-                          muted
-                          loop
-                          playsInline
-                          aria-label="구직등록 신청 안내 영상"
                         />
                       </div>
                       <div className="hidden">
@@ -764,15 +882,10 @@ export default function App() {
                   <div className="lg:col-span-6 order-2 lg:order-1">
                     <div className="relative rounded-3xl overflow-hidden bg-white shadow-[0_10px_35px_rgba(0,0,0,0.04)] border border-[#E3EBEE]">
                       <div className="aspect-video">
-                        <video
-                          src={NATIONAL_EMPLOYMENT_VIDEO}
+                        <img
+                          src={ZEN_STONES_IMG}
+                          alt="차분한 상담 환경"
                           className="w-full h-full object-cover"
-                          autoPlay
-                          muted
-                          loop
-                          playsInline
-                          controls
-                          aria-label="국민취업지원제도 신청 안내 영상"
                         />
                       </div>
                       <div className="hidden">
@@ -1257,6 +1370,43 @@ export default function App() {
                 </p>
               </div>
 
+              {/* Selected branch map */}
+              <div id="branch-map" className="mb-10 overflow-hidden rounded-3xl border border-[#DCE8EB] bg-white shadow-[0_10px_35px_rgba(0,0,0,0.04)]">
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 px-6 py-5 border-b border-[#E3EBEE]">
+                  <div>
+                    <span className="text-[10px] font-bold tracking-widest text-[#7296A1] uppercase block mb-1">Selected branch</span>
+                    <h2 className="text-xl font-bold text-[#12242D]">{mapBranch}{branchSuffix(mapBranch)} 찾아오는 길</h2>
+                  </div>
+                  <a
+                    href={`https://map.naver.com/v5/search/${encodeURIComponent(displayedMapBranch.address)}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#3D5C65] hover:text-[#12242D] underline underline-offset-4"
+                  >
+                    지도에서 크게 보기
+                    <ExternalLink size={13} />
+                  </a>
+                </div>
+                <div className="relative h-72 sm:h-96 bg-[#EBF2F4]">
+                  <iframe
+                    key={mapBranch}
+                    title={`${mapBranch}${branchSuffix(mapBranch)} 위치 지도`}
+                    src={`https://www.google.com/maps?q=${encodeURIComponent(displayedMapBranch.address)}&z=15&output=embed`}
+                    className="absolute inset-0 w-full h-full border-0"
+                    loading="lazy"
+                    referrerPolicy="no-referrer-when-downgrade"
+                  />
+                  <div className="absolute left-4 bottom-4 max-w-[calc(100%-2rem)] sm:left-6 sm:bottom-6 sm:max-w-sm rounded-2xl bg-white/95 backdrop-blur-sm border border-[#DCE8EB] px-4 py-3 shadow-[0_8px_24px_rgba(18,36,45,0.14)]">
+                    <p className="text-xs font-bold text-[#12242D] mb-1">{mapBranch}{branchSuffix(mapBranch)}</p>
+                    <p className="text-[11px] leading-relaxed text-[#526670]">{displayedMapBranch.address}</p>
+                    <p className="mt-1 text-[11px] text-[#7296A1]">{displayedMapBranch.phone}</p>
+                  </div>
+                </div>
+                <div className="px-6 py-4 text-xs text-[#526670] font-light">
+                  {displayedMapBranch.address}
+                </div>
+              </div>
+
               {/* Region Filter Tabs */}
               <div className="flex flex-wrap gap-2 mb-10 pb-4 border-b border-[#E3EBEE]">
                 {["전체", ...BRANCH_REGIONS].map(r => (
@@ -1283,10 +1433,19 @@ export default function App() {
                 }).map(name => {
                   const b = branches[name];
                   return (
-                    <div
+                    <button
+                      type="button"
                       key={name}
-                      onClick={() => setActiveModal({ type: 'map', data: b })}
-                      className="bg-white p-7 rounded-3xl border border-[#E3EBEE] hover:border-[#88AAB3] shadow-xs hover:shadow-md transition-all cursor-pointer flex flex-col justify-between"
+                      onClick={() => {
+                        setMapBranch(name);
+                        document.getElementById('branch-map')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                      }}
+                      aria-pressed={mapBranch === name}
+                      className={`bg-white p-7 rounded-3xl border shadow-xs hover:shadow-md transition-all cursor-pointer flex flex-col justify-between text-left ${
+                        mapBranch === name
+                          ? 'border-[#7296A1] ring-1 ring-[#7296A1]/30'
+                          : 'border-[#E3EBEE] hover:border-[#88AAB3]'
+                      }`}
                     >
                       <div>
                         <div className="flex items-center justify-between mb-3">
@@ -1310,7 +1469,7 @@ export default function App() {
                         <span>약도 및 지도보기</span>
                         <ArrowRight size={13} />
                       </div>
-                    </div>
+                    </button>
                   );
                 })}
               </div>
