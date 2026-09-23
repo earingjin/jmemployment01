@@ -1,0 +1,36 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --nordic-blue-dark: #12242D;
+    --nordic-blue: #7296A1;
+    --nordic-blue-light: #94B5BE;
+    --nordic-blue-soft: #DCE8EB;
+    --nordic-blue-bg: #EBF2F4;
+    --nordic-sand: #F7F9F9;
+  }
+
+  body {
+    font-family: 'Pretendard', 'Noto Sans KR', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    color: #1a2a32;
+    background-color: #fafbfb;
+    word-break: keep-all;
+    -webkit-font-smoothing: antialiased;
+  }
+
+}
+
+.font-serif-kr {
+  font-family: 'Pretendard', 'Noto Sans KR', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.font-sans-kr {
+  font-family: 'Pretendard', 'Noto Sans KR', sans-serif;
+}
+
+/* Keep every utility and editorial text style on the same Pretendard typeface. */
+.font-serif,
+.font-mono,
+.font-editorial {
+  font-family: 'Pretendard', 'Noto Sans KR', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}

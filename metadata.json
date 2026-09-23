@@ -1,0 +1,6 @@
+{
+  "name": "JMCAREER 취업지원 종합센터",
+  "description": "신뢰받는 공공 고용서비스 및 전문 커리어 컨설팅 기관 웹사이트 데모",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
